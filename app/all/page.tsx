@@ -1,12 +1,16 @@
 import { TableOffers } from '@/components';
+import { Suspense } from 'react';
 
 export default async function All() {
-  const allOffers = await fetch('https://b580138023681732.mokky.dev/items');
-  const items = await allOffers.json();
+  function SearchFallback() {
+    return <>Идет загрузка...</>;
+  }
   return (
     <div className="bg-gray-100 font-sans">
       <main className="p-8">
-        <TableOffers items={items} />
+        <Suspense fallback={<SearchFallback />}>
+          <TableOffers />
+        </Suspense>
       </main>
     </div>
   );
