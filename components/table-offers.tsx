@@ -1,4 +1,6 @@
+'use client';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 export interface Item {
   id: number;
@@ -9,10 +11,17 @@ export interface Item {
   description?: string;
 }
 
-export const TableOffers = ({ items }: { items: Item[] }) => {
+export const TableOffers = async () => {
+  const searchParams = useSearchParams();
+
+  const searchOffers = await fetch(
+    `https://b580138023681732.mokky.dev/items?${searchParams}`
+  );
+  const items = await searchOffers.json();
   return (
     <section className="table-offers mb-12">
       <h2 className="text-2xl font-semibold mb-4">Предложения</h2>
+      {items.length === 0 && <p>Ничего не найдено</p>}
       <div className="object-cards flex justify-around flex-wrap">
         {items.map((item: any) => (
           <Link href={`/${item.id}`} key={item.id}>
