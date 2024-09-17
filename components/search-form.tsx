@@ -31,7 +31,7 @@ export const SearchForm = () => {
   return (
     <section className="search-form mb-12">
       <h2 className="text-2xl font-semibold mb-4">Поиск недвижимости</h2>
-      <form className="flex justify-center gap-4">
+      <form className="flex justify-center gap-4 flex-col md:flex-row">
         <select
           name="city"
           className="p-2 border rounded"
